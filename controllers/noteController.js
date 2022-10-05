@@ -4,7 +4,7 @@ export const create = async (req, res) => {
   const { title, content } = req.body;
   const note = new Note({ title, content, user: req.user });
   await note.save();
-  res.json({
+  res.send({
     success: true,
     data: note,
   });
@@ -19,7 +19,7 @@ export const list = async (req, res) => {
   //const pages = Math.ceil(total / limit);
   if (!notes)
     return res.status(400).send({ message: 'there is not notes you ceated' });
-  res.json({
+  res.send({
     success: true,
     //pages,
     data: notes,
@@ -44,7 +44,7 @@ export const update = async (req, res) => {
   // );
   const upadtedNote = await Note.findById(id);
 
-  res.json({
+  res.send({
     success: true,
     data: upadtedNote,
   });
@@ -53,7 +53,7 @@ export const update = async (req, res) => {
 export const Delete = async (req, res) => {
   const { id } = req.params;
   await Note.deleteOne({ _id: id });
-  res.json({
+  res.send({
     success: true,
   });
 };
@@ -61,7 +61,7 @@ export const find = async (req, res) => {
   const { id } = req.params;
   const note = await Note.findById(id);
   if (!note) return res.status(403).send({ message: 'note not found' });
-  res.json({
+  res.send({
     success: true,
     data: note,
   });

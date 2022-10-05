@@ -9,7 +9,7 @@ export const check = (req, res, next) => {
     console.log(payload);
     return next();
   }
-  res.status(401).json({
+  res.status(401).send({
     massage: 'unAuthoraized',
   });
 };
